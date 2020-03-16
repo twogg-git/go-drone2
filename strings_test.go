@@ -6,8 +6,8 @@ import (
 )
 
 func TestReverseEmptyString(t *testing.T) {
-	s := ""
-	e := ""
+	s := "1"
+	e := "1"
 	r := Flip(s)
 	assert.Equal(t, e, r)
 }

@@ -8,7 +8,7 @@ steps:
   - go get -v -t -d ./...
   - go build
       
-- name: notify:
+- name: notify
   image: drillster/drone-email
   settings: 
     host: smtp

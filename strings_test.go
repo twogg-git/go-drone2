@@ -14,7 +14,7 @@ func TestReverseEmptyString(t *testing.T) {
 
 func TestReverseSingleCharString(t *testing.T) {
 	s := "a"
-	e := "a"
+	e := "c"
 	r := Flip(s)
 	assert.Equal(t, e, r)
 }

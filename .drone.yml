@@ -1,5 +1,5 @@
 kind: pipeline
-name: PipelineDrone2
+name: Pipeline
 
 steps:
 - name: build
@@ -7,4 +7,10 @@ steps:
   commands:
   - go get -v -t -d ./...
   - go build
+      
+- name: testing
+  image: golang
+  commands:
+  - go get -v -t -d ./...
   - go test -v ./...
+      

@@ -14,7 +14,6 @@ steps:
   - go get -v -t -d ./...
   - go test -v ./...
       
-services:
 - name: publish
   image: plugins/docker
   settings:

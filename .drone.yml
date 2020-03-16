@@ -1,41 +1,18 @@
-pipeline:
+kind: pipeline
+name: Pipeline
 
-  build:
-    image: golang
-    commands:
-    - go get -v -t -d ./...
-    - go build
-
-  testing:
-    image: golang
-    commands:
-    - go get -v -t -d ./...
-    - go test -v ./...
-
-  publis:
-    image: plugins/docker
-    settings:
-      username:
-        from_secret: DOCKER_USERNAME
-      password:
-        from_secret: DOCKER_PASSWORD
-      repo: twogghub/go-drone2
-      tags:
-        - 0.0.2
-        - latest
-
-  notify:
-    image: drillster/drone-email
-    settings: 
-      host: smtp
-      username: user
-      password: pwd
-      port: 25
-      skip_verify: true
-      from: pipeline@cloud.drone.io
-      recipients: [ cruz.catherin@gmail.com, catherine.cruz@endava.com ]
-      when:
-        status: [ changed, success, failure ]     
+steps:
+- name: build
+  image: golang
+  commands:
+  - go get -v -t -d ./...
+  - go build
+      
+- name: testing
+  image: golang
+  commands:
+  - go get -v -t -d ./...
+  - go test -v ./...
       
 services:
 - name: smtp
@@ -46,3 +23,30 @@ services:
     smtp_user: user:pwd
     messageSizeLimit: 40960000
     mailboxSizeLimit: 40960000
+
+- name: publish
+  image: plugins/docker
+  settings:
+    username:
+      from_secret: DOCKER_USERNAME
+    password:
+      from_secret: DOCKER_PASSWORD
+    repo: twogghub/go-drone2
+    tags:
+      - 1.0.2
+      - latest
+  when:
+    branch:
+    - master
+
+- name: notify
+  image: drillster/drone-email
+  settings: 
+    host: smtp
+    username: user
+    password: pwd
+    port: 25
+    skip_verify: true
+    from: pipeline@cloud.drone.io
+    when:
+      status: [ changed, success, failure ]

@@ -14,3 +14,15 @@ steps:
   - go get -v -t -d ./...
   - go test -v ./...
       
+services:
+- name: publish
+  image: plugins/docker
+  settings:
+    username:
+      from_secret: DOCKER_USERNAME
+    password:
+      from_secret: DOCKER_PASSWORD
+    repo: twogghub/go-droneci
+    tags:
+      - 0.0.1
+      - latest

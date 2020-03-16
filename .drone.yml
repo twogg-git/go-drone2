@@ -22,7 +22,7 @@ services:
       from_secret: DOCKER_USERNAME
     password:
       from_secret: DOCKER_PASSWORD
-    repo: twogghub/go-droneci
+    repo: twogghub/go-drone2
     tags:
       - 0.0.1
       - latest

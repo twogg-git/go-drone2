@@ -26,7 +26,6 @@ steps:
       - 0.0.2
       - latest
 
-services:
 - name: smtp
   image: catatnight/postfix
   environment:

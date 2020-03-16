@@ -27,6 +27,8 @@ steps:
       - 0.0.2
       - latest
 
+services:
+
 - name: notify
   image: drillster/drone-email
   settings: 
@@ -39,9 +41,7 @@ steps:
     recipients: [ cruz.catherin@gmail.com, catherine.cruz@endava.com ]
     when:
       status: [ changed, success ]
-
-services:
-
+      
 - name: smtp
   image: catatnight/postfix
   environment:

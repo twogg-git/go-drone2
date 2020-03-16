@@ -30,7 +30,7 @@ steps:
 - name: notify
   image: drillster/drone-email
   settings: 
-    host: localhost
+    host: smtp
     username: user
     password: pwd
     port: 25

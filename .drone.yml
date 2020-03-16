@@ -2,12 +2,24 @@ kind: pipeline
 name: Pipeline
 
 steps:
-
 - name: build
   image: golang
   commands:
   - go get -v -t -d ./...
   - go build
+      
+- name: notify:
+  image: drillster/drone-email
+  settings: 
+    host: smtp
+    username: user
+    password: pwd
+    port: 25
+    skip_verify: true
+    from: pipeline@cloud.drone.io
+    recipients: [ cruz.catherin@gmail.com, catherine.cruz@endava.com ]
+    when:
+      status: [ changed, success, faliure ]
       
 - name: testing
   image: golang
@@ -26,7 +38,7 @@ steps:
     tags:
       - 0.0.2
       - latest
-
+      
 services:
 - name: smtp
   image: catatnight/postfix
@@ -36,18 +48,4 @@ services:
     smtp_user: user:pwd
     messageSizeLimit: 40960000
     mailboxSizeLimit: 40960000
-    
-notify:
-  image: drillster/drone-email
-  settings: 
-    host: smtp
-    username: user
-    password: pwd
-    port: 25
-    skip_verify: true
-    from: pipeline@cloud.drone.io
-    recipients: [ cruz.catherin@gmail.com, catherine.cruz@endava.com ]
-    when:
-      status: [ changed, success, faliure ]
-      
 

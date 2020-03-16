@@ -39,7 +39,7 @@ services:
 - name: notify
   image: drillster/drone-email
   settings: 
-    host: smtp
+    host: localhost
     username: user
     password: pwd
     port: 25
